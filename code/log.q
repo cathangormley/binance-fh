@@ -1,8 +1,6 @@
 
 // For logging queries
 
-\l curl.q
-
 .log.queries:([logid:"j"$()]time:"p"$();endpoint:`$();params:();respcode:"j"$();weight:"j"$())
 
 .log.logid:0
@@ -18,4 +16,3 @@
   r 
  }
 
-.curl.hget:.log.andlog[.curl.hget]

@@ -29,6 +29,7 @@
   resp:system"curl -i -s -X GET ",req;
   .curl.handleresponse resp
  };
+.curl.hget:.log.andlog[.curl.hget]
 
 \
 .curl.hget["time"]
