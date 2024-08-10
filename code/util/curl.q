@@ -26,7 +26,7 @@
 
 .curl.hget:{[endpoint;params]
   req:.env.BINANCEADDRESS,endpoint,.curl.handleparameters params;
-  resp:system"curl -i -s -X GET ",req;
+  resp:system"curl -i -s -X GET '",req,"'";
   .curl.handleresponse resp
  };
 .curl.hget:.log.andlog[.curl.hget]

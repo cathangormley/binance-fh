@@ -24,3 +24,4 @@
  };
 
 .proc.loaddir "code/util"
+.proc.loaddir "code/binance"
