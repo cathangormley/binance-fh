@@ -30,6 +30,3 @@
   .curl.handleresponse resp
  };
 .curl.hget:.log.andlog[.curl.hget]
-
-\
-.curl.hget["time"]
