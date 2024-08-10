@@ -15,7 +15,7 @@
 // Add a repeating timer
 .timer.add:{[period;func;params;description]
   id:.timer.getnewid[];
-  .timer.timer,:(id;period;func;enlist params;.z.p;1b;enlist description);
+  .timer.timer,:(id;period;func;params;.z.p;1b;description);
  };
 
 // Turn on timer
