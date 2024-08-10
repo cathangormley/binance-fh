@@ -17,6 +17,3 @@ startprocess:{[proc]
 startprocess each processes;
 
 exit 0;
-\
-Usage: 
-q start.q -baseport 24000 -q
