@@ -23,4 +23,4 @@
   .proc.loadfile each dir,/:files; 
  };
 
-.proc.loaddir .env.CODEDIR
+.proc.loaddir "code/util"
