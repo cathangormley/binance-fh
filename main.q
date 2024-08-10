@@ -26,4 +26,4 @@
 .proc.loaddir "code/util"
 .proc.loaddir "code/binance"
 
-\c 25 200
+system"c 25 200"

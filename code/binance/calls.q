@@ -24,9 +24,7 @@
   update "j"$id,"F"$price,"F"$qty,"F"$quoteQty,.util.fromunix time from resp
  };
 
-
-
-
+\
 getmoretrades:{[sym]
   maxid:@[{exec max id from trades where symbol=x};sym;0];
   resp:.binanceapi.historicaltrades[sym;maxid+1;1000];
