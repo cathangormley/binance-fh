@@ -1,0 +1,10 @@
+proctypes,procname,portoffset,options
+tp,livetp,0,
+tp,histtp,1,
+wdb,wdb1,10,
+hdb,hdb1,20,
+binancefh,bfh1,100,
+binancefh,bfhx1,101,
+binancefh,bfhx2,102,
+binancefh,bfhx3,103,
+binancefh,bfhx4,104,

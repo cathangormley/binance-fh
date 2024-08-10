@@ -1,0 +1,1 @@
+.env.BINANCEADDRESS:"https://api.binance.com/api/v3/"

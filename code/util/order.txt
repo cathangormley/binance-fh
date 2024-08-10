@@ -1,3 +1,0 @@
-log.q
-util.q
-curl.q

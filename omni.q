@@ -1,15 +1,11 @@
 
 // Globals
 
-.env.BINANCEADDRESS:"https://api.binance.com/api/v3/"
-
-.env.APPDIR:getenv`BINANCEFHAPPDIR;
-.env.CODEDIR:getenv`BINANCEFHCODEDIR;
-.env.CONFIGDIR:getenv`BINANCEFHCONFIGDIR;
+.env.APPDIR:"/" sv -1 _ "/" vs first -3#value[{}]
+.proc.opt:.Q.opt .z.x
 
 // Need to define how to load files and directories to bootstrap the system
 .proc.loadfile:{[file]
-  -1@"Loading ",file;
   system"l ",file;
  };
 
@@ -23,7 +19,10 @@
   .proc.loadfile each dir,/:files; 
  };
 
-.proc.loaddir "code/util"
-.proc.loaddir "code/binance"
+.proc.procname:`$first .proc.opt[`procname];
+.proc.proctypes:`$.proc.opt[`proctypes];
+.proc.baseport:"J"$first .proc.opt[`baseport];
 
-system"c 25 200"
+.proc.loaddir "code/common";
+{.proc.loaddir "code/proc/",x} each string[.proc.proctypes];
+{.proc.loadfile "settings/proc/",x,".q"} each string[.proc.proctypes];
