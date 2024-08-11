@@ -30,3 +30,8 @@
   // Async broadcast, only need to serialise once
   -25!(.ps.subscribers[t];(`upd;t;x));
  };
+
+// Subscribers call this function
+.ps.subscribe:{.ps.sub[x;.z.w]};
+
+upd:.ps.upd;
