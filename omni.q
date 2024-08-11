@@ -6,7 +6,7 @@
 
 // Need to define how to load files and directories to bootstrap the system
 .proc.loadfile:{[file]
-  system"l ",file;
+  system"l ",.env.APPDIR,"/",file;
  };
 
 .proc.loaddir:{[dir]
@@ -16,7 +16,7 @@
     files:order,files except order;
    ];
   files:files where files like "*.q";
-  .proc.loadfile each dir,/:files; 
+  system each ("l ",dir),/:files; 
  };
 
 .proc.configfile:{[file]
