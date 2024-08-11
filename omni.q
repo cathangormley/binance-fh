@@ -10,13 +10,17 @@
  };
 
 .proc.loaddir:{[dir]
-  files:string key hsym`$dir,:"/";
+  files:string key hsym`$dir:.env.APPDIR,"/",dir,"/";
   if[(o:"order.txt") in files;
     order:read0 `$dir,o;
     files:order,files except order;
    ];
   files:files where files like "*.q";
   .proc.loadfile each dir,/:files; 
+ };
+
+.proc.configfile:{[file]
+  .env.APPDIR,"/settings/",file
  };
 
 .proc.procname:`$first .proc.opt[`procname];
