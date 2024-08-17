@@ -1,32 +1,49 @@
 
 // Globals
 
-.env.APPDIR:"/" sv -1 _ "/" vs first -3#value[{}]
-.proc.opt:.Q.opt .z.x
+.env.APPDIR:"/" sv -1 _ "/" vs first -3#value[{}];
+.proc.opt:.Q.opt .z.x;
+
+.proc.procname:`$first .proc.opt[`procname];
+.proc.proctypes:`$.proc.opt[`proctypes];
+.proc.baseport:"J"$first .proc.opt[`baseport];
+
+// Redirect output and errors
+system"1 ",getenv[`LOGDIR],string[.proc.procname],"_out.log"
+system"2 ",getenv[`LOGDIR],string[.proc.procname],"_err.log"
+
+// Print memory stats and message to redirect handle
+.log.log:{[redirect;msg]
+  memstats:{"[",x,"]"}"|" sv -4$'string "j"$(value 4#.Q.w[])%2 xexp 20;
+  neg[redirect] " " sv (string .z.p;memstats;msg);
+ };
+
+.log.out:.log.log[1];
+.log.err:.log.log[2];
 
 // Need to define how to load files and directories to bootstrap the system
 .proc.loadfile:{[file]
-  system"l ",.env.APPDIR,"/",file;
+  .log.out["Loading file: ",file];
+  system"l ",file;
  };
 
 .proc.loaddir:{[dir]
-  files:string key hsym`$dir:.env.APPDIR,"/",dir,"/";
+  .log.out["Loading directory: ",dir];
+  files:string key hsym`$dir:dir,"/";
   if[(o:"order.txt") in files;
     order:read0 `$dir,o;
     files:order,files except order;
    ];
   files:files where files like "*.q";
-  system each ("l ",dir),/:files; 
+  .proc.loadfile each dir,/:files; 
  };
 
 .proc.configfile:{[file]
   .env.APPDIR,"/settings/",file
  };
 
-.proc.procname:`$first .proc.opt[`procname];
-.proc.proctypes:`$.proc.opt[`proctypes];
-.proc.baseport:"J"$first .proc.opt[`baseport];
+.proc.loaddir .env.APPDIR,"/code/common";
+{.proc.loadfile .env.APPDIR,"/settings/proc/",x,".q"}'[string .proc.proctypes];
+{.proc.loaddir .env.APPDIR,"/code/proc/",x} each string[.proc.proctypes];
 
-.proc.loaddir "code/common";
-{.proc.loadfile "settings/proc/",x,".q"} each string[.proc.proctypes];
-{.proc.loaddir "code/proc/",x} each string[.proc.proctypes];
+-1 -2@\: "\n" sv read0 `$.proc.configfile "banner.txt";

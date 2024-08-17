@@ -1,7 +1,8 @@
 
 // For logging queries
 
-.log.queries:([logid:"j"$()]time:"p"$();endpoint:`$();params:();respcode:"j"$();weight:"j"$())
+.log.queries:([logid:"j"$()]
+  time:"p"$();endpoint:`$();params:();respcode:"j"$();weight:"j"$())
 
 .log.logid:0
 
@@ -14,5 +15,4 @@
   `.log.queries insert (.log.logid;t;`$endpoint;params;respcode;weight);
   .log.logid+:1;
   r 
- }
-
+ };

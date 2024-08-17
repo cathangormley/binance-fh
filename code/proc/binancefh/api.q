@@ -14,7 +14,8 @@
 
 // Returns historical trades of symbol with id = id + til limit
 .binanceapi.historicaltrades:{[symbol;id;limit]
-  resp:.curl.hget["historicalTrades";`symbol`fromId`limit!(symbol;id;limit)][`body];
+  dict:`symbol`fromId`limit!(symbol;id;limit);
+  resp:.curl.hget["historicalTrades";dict][`body];
   update "j"$id,"F"$price,"F"$qty,"F"$quoteQty,.util.fromunix time from resp
  };
 
