@@ -28,5 +28,5 @@
 .proc.baseport:"J"$first .proc.opt[`baseport];
 
 .proc.loaddir "code/common";
-{.proc.loaddir "code/proc/",x} each string[.proc.proctypes];
 {.proc.loadfile "settings/proc/",x,".q"} each string[.proc.proctypes];
+{.proc.loaddir "code/proc/",x} each string[.proc.proctypes];

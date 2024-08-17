@@ -23,12 +23,3 @@
   resp:.curl.hget["trades";`symbol`limit!(symbol;limit)][`body];
   update "j"$id,"F"$price,"F"$qty,"F"$quoteQty,.util.fromunix time from resp
  };
-
-\
-getmoretrades:{[sym]
-  maxid:@[{exec max id from trades where symbol=x};sym;0];
-  resp:.binanceapi.historicaltrades[sym;maxid+1;1000];
-  `trades insert resp;
- };
-
-.timer.add[0D00:00:03;`getmoretrades;enlist`BTCUSDT;"Get historical BTCUSDT trades"];
