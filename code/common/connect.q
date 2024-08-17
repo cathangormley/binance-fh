@@ -1,6 +1,6 @@
 
 .conn.processes:`procname xkey ("ssj*";1#",")0:`$.proc.configfile "process.csv";
-update port:.proc.baseport+portoffset,h:0Ni from `.conn.processes;
+update port:.env.BASEPORT+portoffset,h:0Ni from `.conn.processes;
 
 // Update .conn.processes with connection handle to proc
 .conn.connect:{[proc]

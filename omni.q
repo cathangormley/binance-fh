@@ -1,16 +1,23 @@
 
-// Globals
+// -- Globals ------------------------------------------------------------------
 
-.env.APPDIR:"/" sv -1 _ "/" vs first -3#value[{}];
+.env.BASEPORT:"J"$getenv`BASEPORT;
+.env.APPDIR:getenv`APPDIR;
+.env.HDBDIR:getenv`HDBDIR;
+.env.WDBDIR:getenv`WDBDIR;
+.env.LOGDIR:getenv`LOGDIR;
+
+// Process specific info
 .proc.opt:.Q.opt .z.x;
 
 .proc.procname:`$first .proc.opt[`procname];
 .proc.proctypes:`$.proc.opt[`proctypes];
-.proc.baseport:"J"$first .proc.opt[`baseport];
+
+// -- Logging ------------------------------------------------------------------
 
 // Redirect output and errors
-system"1 ",getenv[`LOGDIR],string[.proc.procname],"_out.log"
-system"2 ",getenv[`LOGDIR],string[.proc.procname],"_err.log"
+system"1 ",.env.LOGDIR,string[.proc.procname],"_out.log"
+system"2 ",.env.LOGDIR,string[.proc.procname],"_err.log"
 
 // Print memory stats and message to redirect handle
 .log.log:{[redirect;msg]
@@ -20,6 +27,8 @@ system"2 ",getenv[`LOGDIR],string[.proc.procname],"_err.log"
 
 .log.out:.log.log[1];
 .log.err:.log.log[2];
+
+// -- Loading ------------------------------------------------------------------
 
 // Need to define how to load files and directories to bootstrap the system
 .proc.loadfile:{[file]
@@ -39,11 +48,11 @@ system"2 ",getenv[`LOGDIR],string[.proc.procname],"_err.log"
  };
 
 .proc.configfile:{[file]
-  .env.APPDIR,"/settings/",file
+  .env.APPDIR,"settings/",file
  };
 
-.proc.loaddir .env.APPDIR,"/code/common";
-{.proc.loadfile .env.APPDIR,"/settings/proc/",x,".q"}'[string .proc.proctypes];
-{.proc.loaddir .env.APPDIR,"/code/proc/",x} each string[.proc.proctypes];
+.proc.loaddir .env.APPDIR,"code/common";
+{.proc.loadfile .env.APPDIR,"settings/proc/",x,".q"}'[string .proc.proctypes];
+{.proc.loaddir .env.APPDIR,"code/proc/",x} each string[.proc.proctypes];
 
 -1 -2@\: "\n" sv read0 `$.proc.configfile "banner.txt";
