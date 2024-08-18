@@ -20,7 +20,7 @@ upd:insert;
   // t:update `p#scol from (scol;pcol) xasc t
   t:r[`s`p] xasc t;
   t:![t;();0b;enlist[r`s]!enlist[(#;1#`p;r`s)]];
-  d set t;
+  (d,.wdb.compressionparams) set t;
  };
 
 
