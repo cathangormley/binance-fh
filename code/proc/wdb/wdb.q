@@ -8,16 +8,13 @@ upd:insert;
 
 .wdb.en:.Q.en[hsym `$.env.HDBDIR];
 
-.wdb.tables:("sss*";1#",") 0: `$.proc.configfile["tables.csv"];
-.wdb.tables:`t xkey update `$"|"vs'k from .wdb.tables;
-
 // n = table name, t = table, d = handle
 // Saves a table t to directory (or file) d
-// If f already exists, join on key colums as given by .wdb.tables
+// If f already exists, join on key colums as given by .tab.TABLES
 .wdb.savetable:{[n;t;d]
   t0:$[count key d;?[d;();0b;()];0#t];
   t,:t0;
-  r:.wdb.tables[n];
+  r:.tab.TABLES[n];
   // t:0!select by kcols from t
   t:0!?[t;();{x!x}r`k;()];
   // t:update `p#scol from (scol;pcol) xasc t
@@ -37,7 +34,7 @@ upd:insert;
 .wdb.upserttodisk:{[n]
   .log.out["Upserting ",string[n]," to disk"];
   t:.wdb.en value n;
-  pcol:.wdb.tables[n][`p];
+  pcol:.tab.TABLES[n][`p];
   // t:update date:`date$pcol from t
   t:![t;();0b;enlist[`date]!enlist[($;1#`date;pcol)]];
   t:`date xasc t;

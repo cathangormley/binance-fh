@@ -1,11 +1,8 @@
+
 // For backfilling historical trades
 
-/
-.bfh.symscount:0^.bfh.syms#exec sym!x from
-  .conn.sync[`hdb1;"select count i by sym from binancetrades"]
-\
-// For now, set to zero
-.bfh.symscount:{x!count[x]#0}.bfh.syms;
+system"sleep 1";
+.bfh.symscount:0^.bfh.syms#.conn.sync[`hdb1;`.hdb.getsymcounts`];
 
 // Get 1000 historical trades at id of symscount then update global variable
 .bfh.backfilltrades:{[symbol]
