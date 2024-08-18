@@ -7,6 +7,7 @@ update port:.env.BASEPORT+portoffset,h:0Ni from `.conn.processes;
   // hopen and update .conn.processes
   hproc:hopen .conn.processes[proc][`port];
   .[`.conn.processes;(proc;`h);:;hproc];
+  hproc
  };
 
 // Disconnect from proc and update .conn.processes
