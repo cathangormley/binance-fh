@@ -33,12 +33,14 @@ system"2 ",.env.LOGDIR,string[.proc.procname],"_err.log"
 // Need to define how to load files and directories to bootstrap the system
 .proc.loadfile:{[file]
   .log.out["Loading file: ",file];
+  if[()~key hsym `$file;.log.out["Could not find directory"];:(::)];
   system"l ",file;
  };
 
 .proc.loaddir:{[dir]
   .log.out["Loading directory: ",dir];
   files:string key hsym`$dir:dir,"/";
+  if[()~files;.log.out["Could not find directory"];:(::)];
   if[(o:"order.txt") in files;
     order:read0 `$dir,o;
     files:order,files except order;
