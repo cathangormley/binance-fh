@@ -2,6 +2,8 @@ system"sleep 1";
 
 .conn.async[`histtp;(`.ps.subscribe;`binancetrades)];
 .conn.async[`histtp;(`.ps.subscribe;`binanceaggtrades)];
+.conn.async[`histtp;(`.ps.subscribe;`binancekline1m)];
+.conn.async[`histtp;(`.ps.subscribe;`binancekline1s)];
 
 upd:insert;
 

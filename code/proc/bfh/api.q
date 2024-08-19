@@ -36,3 +36,14 @@
   .bfh.stamp .bfh.stamp select sym:symbol,aggid:"j"$a,price:"F"$p,qty:"F"$q,
     tradetime:.util.fromunix T,buyermaker:m from resp
  };
+
+// Returns open, high, low, close for periods = starttime + interval * til limit
+.bfh.api.kline:{[symbol;starttime;interval;limit]
+  dict:`symbol`interval`startTime`limit!
+    (symbol;interval;.util.tounix starttime;limit);
+  resp:.curl.hget["klines";dict][`body];
+  resp:flip `t0`o`h`l`c`vol`t1`volq`num`bvol`bolq`u!flip resp;
+  .bfh.stamp select sym:symbol,starttime:.util.fromunix t0,
+    open:"F"$o,high:"F"$h,low:"F"$l,close:"F"$c,
+    volume:"F"$vol,trades:"j"$num from resp
+ };

@@ -1,3 +1,5 @@
 t,p,s,k
 binancetrades,tradetime,sym,sym|id
 binanceaggtrades,tradetime,sym,sym|aggid
+binancekline1s,starttime,sym,sym|starttime
+binancekline1m,starttime,sym,sym|starttime

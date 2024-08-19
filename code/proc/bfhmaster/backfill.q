@@ -19,8 +19,29 @@ system"sleep 1";
   .bfh.symcounts[symbol]+:1000 * .bfh.numslaves;
  };
 
+// For now set start times to 2017.08.01D0
+.bfh.klinesymtimes:{x!count[x]#2017.08.01D0}[.bfh.syms]
+
+// Back fill for binancekline1m
+.bfh.backfillkline1m:{[symbol]
+  f:{[symbol;st].bfh.api.kline[symbol;st;`1m;1000]}[symbol];
+  resp:raze f peach .bfh.klinesymtimes[symbol] +
+    0D00:01 * 1000 * til .bfh.numslaves;
+  .conn.async[`histtp;(`upd;`binancekline1m;value flip resp)];
+  .bfh.klinesymtimes[symbol]+:0D00:01 * 1000 * .bfh.numslaves;
+ };
+
+// Back fill for binancekline1s
+.bfh.backfillkline1s:{[symbol]
+  f:{[symbol;st].bfh.api.kline[symbol;st;`1s;1000]}[symbol];
+  resp:raze f peach .bfh.klinesymtimes[symbol] +
+    0D00:00:01 * 1000 * til .bfh.numslaves;
+  .conn.async[`histtp;(`upd;`binancekline1s;value flip resp)];
+  .bfh.klinesymtimes[symbol]+:0D00:00:01 * 1000 * .bfh.numslaves;
+ };
+
 // Add timer to backfill
 {[sym]
-  .timer.add[0D00:00:01;`.bfh.backfillaggtrades;enlist sym;
-    "Backfill agg trades for ",string sym]
+  .timer.add[0D00:00:01;`.bfh.backfillkline1s;enlist sym;
+    "Backfill kline 1m for ",string sym]
   } each .bfh.syms;

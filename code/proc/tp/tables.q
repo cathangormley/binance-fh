@@ -20,3 +20,18 @@ binanceaggtrades:([]
   buyermaker:"b"$();
   fhtime:"p"$()  
  );
+
+binancekline1s:([]
+  tptime:"p"$();
+  sym:`$();
+  starttime:"p"$();
+  open:"f"$();
+  high:"f"$();
+  low:"f"$();
+  close:"f"$();
+  volume:"f"$();
+  trades:"j"$();
+  fhtime:"p"$()
+ );
+
+binancekline1m:binancekline1s;
