@@ -10,7 +10,7 @@ upd:insert;
 
 // n = table name, t = table, d = handle
 // Saves a table t to directory (or file) d
-// If f already exists, join on key colums as given by .tab.TABLES
+// If d already exists, join on key colums as given by .tab.TABLES
 .wdb.savetable:{[n;t;d]
   t0:$[count key d;?[d;();0b;()];0#t];
   t,:t0;
@@ -28,6 +28,7 @@ upd:insert;
 .wdb.upsertall:{[]
   .log.out["Upserting all tables"];
   .wdb.upserttodisk each tables[];
+  .Q.gc[];
  };
 
 // n = table name
